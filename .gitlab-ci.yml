@@ -1,13 +1,55 @@
-# You can override the included template(s) by including variable overrides
-# SAST customization: https://docs.gitlab.com/ee/user/application_security/sast/#customizing-the-sast-settings
-# Secret Detection customization: https://docs.gitlab.com/ee/user/application_security/secret_detection/#customizing-settings
-# Dependency Scanning customization: https://docs.gitlab.com/ee/user/application_security/dependency_scanning/#customizing-the-dependency-scanning-settings
-# Container Scanning customization: https://docs.gitlab.com/ee/user/application_security/container_scanning/#customizing-the-container-scanning-settings
-# Note that environment variables can be set in several places
-# See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
+variables:
+  MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dmaven.compiler.showWarnings=false -Dmaven.compiler.debug=false -Dorg.slf4j.simpleLogger.showDateTime=true -Dorg.slf4j.simpleLogger.dateTimeFormat=HH:mm:ss:SSS"
+
+image: amazoncorretto:11
+
+include:
+  - template: Security/SAST.gitlab-ci.yml
+
+cache:
+  paths:
+    - .m2/repository
+    - core/target
+
 stages:
-- test
+  - build
+  - test
+  - verify
+  - release
+
+build:
+  stage: build
+  script:
+    - ./mvnw $MAVEN_CLI_OPTS clean compile
+  rules:
+    - if: $CI_COMMIT_TAG == null
+
+test:
+  stage: test
+  script:
+    - ./mvnw $MAVEN_CLI_OPTS verify
+  artifacts:
+    reports:
+      junit:
+        - core/target/surefire-reports/TEST-*.xml
+        - core/target/failsafe-reports/TEST-*.xml
+  rules:
+    - if: $CI_COMMIT_TAG == null
+
 sast:
   stage: test
-include:
-- template: Security/SAST.gitlab-ci.yml
+
+coverage:
+  stage: verify
+  script:
+    - awk -F"," '{ instructions += $4 + $5; covered += $5 } END { print covered, "/", instructions, "instructions covered"; print 100*covered/instructions, "% covered" }' */target/site/jacoco/jacoco.csv
+  coverage: '/(\d+\.?\d*) \% covered/'
+  rules:
+    - if: $CI_DEFAULT_BRANCH == $CI_COMMIT_BRANCH && $CI_COMMIT_TAG == null
+
+codacy:
+  stage: verify
+  script:
+    - bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r core/target/site/jacoco/jacoco.xml -r logger/target/site/jacoco/jacoco.xml -r json-logger/target/site/jacoco/jacoco.xml
+  rules:
+    - if: $CODACY_PROJECT_TOKEN && $CI_COMMIT_TAG == null
