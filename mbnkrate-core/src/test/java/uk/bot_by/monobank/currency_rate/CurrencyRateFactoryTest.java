@@ -19,18 +19,20 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 @Tag("slow")
-class CurrencyRateServiceTest {
+class CurrencyRateFactoryTest {
 
   @Mock
-  private CurrencyRateService currencyRateService;
+  private CurrencyRateServiceProvider currencyRateServiceProvider;
   @Mock
-  private ServiceLoader<CurrencyRateService> serviceLoader;
+  private ServiceLoader<CurrencyRateServiceProvider> serviceLoader;
+
 
   @DisplayName("Provider is absent")
   @Test
   void providerIsNotFound() {
     // when
-    var exception = assertThrows(NoSuchElementException.class, CurrencyRateService::getInstance);
+    var exception = assertThrows(NoSuchElementException.class,
+        CurrencyRateFactory::getServiceProvider);
 
     // then
     assertEquals("No Monobank Currency API providers found", exception.getMessage());
@@ -41,17 +43,17 @@ class CurrencyRateServiceTest {
   @Test
   void providerIsFound() {
     // given
-    when(serviceLoader.findFirst()).thenReturn(Optional.of(currencyRateService));
+    when(serviceLoader.findFirst()).thenReturn(Optional.of(currencyRateServiceProvider));
 
     try (MockedStatic<ServiceLoader> staticUtilities = Mockito.mockStatic(ServiceLoader.class)) {
-      staticUtilities.when(() -> ServiceLoader.load(CurrencyRateService.class))
+      staticUtilities.when(() -> ServiceLoader.load(CurrencyRateServiceProvider.class))
           .thenReturn(serviceLoader);
 
       // when
-      var instance = assertDoesNotThrow(CurrencyRateService::getInstance);
+      var instance = assertDoesNotThrow(CurrencyRateFactory::getServiceProvider);
 
       // then
-      assertEquals(currencyRateService, instance);
+      assertEquals(currencyRateServiceProvider, instance);
     }
   }
 
