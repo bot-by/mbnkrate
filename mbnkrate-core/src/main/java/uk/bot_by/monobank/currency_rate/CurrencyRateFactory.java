@@ -15,26 +15,29 @@
  */
 package uk.bot_by.monobank.currency_rate;
 
-import feign.RequestLine;
-import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.ServiceLoader;
 
 /**
- * Monobank Currency API
+ * Monobank Currency API Factory
  */
-public interface CurrencyRateService {
+public class CurrencyRateFactory {
 
-  String GET_BANK_CURRENCY = "GET /bank/currency";
+  private CurrencyRateFactory() {
+  }
 
   /**
-   * Get a list of Monobank's exchange rates.
-   * <p>
-   * <strong>Important:</strong><br>
-   * the data are cached and updated not more than once every 5 minutes.
+   * Get an instance of Monobank Currency API Service Provider.
    *
-   * @return list of currency rates
-   * @see CurrencyRate
+   * @return a service provider instance
+   * @throws NoSuchElementException if there are no API service providers
    */
-  @RequestLine(GET_BANK_CURRENCY)
-  List<? extends CurrencyRate> getCurrencyRates();
+  static CurrencyRateServiceProvider getServiceProvider() throws NoSuchElementException {
+    var serviceProviders = ServiceLoader.load(CurrencyRateServiceProvider.class);
+
+    return serviceProviders.findFirst()
+        .orElseThrow(() -> new NoSuchElementException("No Monobank Currency API providers found"));
+  }
+
 
 }

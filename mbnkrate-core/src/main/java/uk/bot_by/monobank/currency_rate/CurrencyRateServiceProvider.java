@@ -15,26 +15,18 @@
  */
 package uk.bot_by.monobank.currency_rate;
 
-import feign.RequestLine;
-import java.util.List;
-
 /**
- * Monobank Currency API
+ * Monobank Currency API Service Provider
  */
-public interface CurrencyRateService {
+public interface CurrencyRateServiceProvider {
 
-  String GET_BANK_CURRENCY = "GET /bank/currency";
+  String API_MONOBANK_UA = "https://api.monobank.ua/";
 
   /**
-   * Get a list of Monobank's exchange rates.
-   * <p>
-   * <strong>Important:</strong><br>
-   * the data are cached and updated not more than once every 5 minutes.
+   * Get an instance of Monobank Currency API.
    *
-   * @return list of currency rates
-   * @see CurrencyRate
+   * @return an API instance
    */
-  @RequestLine(GET_BANK_CURRENCY)
-  List<? extends CurrencyRate> getCurrencyRates();
+  CurrencyRateService getService();
 
 }

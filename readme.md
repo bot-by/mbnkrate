@@ -3,6 +3,7 @@
 This library provides access to Monobank Currency Rate API.
 
 [![Codacy Grade](https://app.codacy.com/project/badge/Grade/b5717f0b18bc4794a56dfe6859562eed)](https://app.codacy.com/gl/bot-by/mbnkrate/dashboard?utm_source=gl&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![Codacy Coverage](https://app.codacy.com/project/badge/Coverage/b5717f0b18bc4794a56dfe6859562eed)](https://app.codacy.com/gl/bot-by/mbnkrate/dashboard?utm_source=gl&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 [![Java Version](https://img.shields.io/static/v1?label=java&message=11&color=blue&logo=java&logoColor=E23D28)](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
 
 

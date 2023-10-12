@@ -1,6 +1,21 @@
+/*
+ * Copyright 2023 Vitalij Berdinskih
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package uk.bot_by.monobank.currency_rate;
 
-import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
@@ -33,24 +48,23 @@ public enum Currency {
       "USh"), UYU(858, "$", "$U"), UZS(860), VND(704, 0, "₫", "đ"), XAF(950, 0), XOF(952, 0), YER(
       886), ZAR(710, "R");
 
-  static final int TWO_DIGITS = 2;
-  static final Map<String, Set<Currency>> symbolToEnum = Stream.of(values())
-      .filter(currency -> currency.getSymbols().length != 0).flatMap(
-          currency -> Arrays.stream(currency.symbols)
+  private static final int TWO_DIGITS = 2;
+  private static final Map<String, Set<Currency>> SYMBOL_TO_ENUM = Stream.of(values())
+      .filter(currency -> !currency.getSymbols().isEmpty()).flatMap(
+          currency -> currency.symbols.stream()
               .map(symbol -> getSymbolCurrencyEntry(currency, symbol))).collect(
           Collectors.toMap(Entry<String, Currency>::getKey, (entry) -> Set.of(entry.getValue()),
               (first, second) -> Stream.of(first, second).flatMap(Set::stream)
                   .collect(Collectors.toSet())));
-
-  static final Map<Integer, Currency> numericCodeToEnum = Stream.of(values())
+  private static final Map<Integer, Currency> NUMERIC_CODE_TO_ENUM = Stream.of(values())
       .collect(Collectors.toMap(Currency::getNumericCode, currency -> currency));
 
-  final String[] symbols;
-  final int numericCode;
-  final int minorUnit;
+  private final List<String> symbols;
+  private final int numericCode;
+  private final int minorUnit;
 
   Currency(int numericCode, int minorUnit, String... symbols) {
-    this.symbols = symbols;
+    this.symbols = List.of(symbols);
     this.numericCode = numericCode;
     this.minorUnit = minorUnit;
   }
@@ -67,24 +81,12 @@ public enum Currency {
     this(numericCode, TWO_DIGITS, new String[0]);
   }
 
-  static Set<Currency> fromSymbol(String symbol) {
-    return symbolToEnum.getOrDefault(symbol, Set.of());
+  public static Set<Currency> fromSymbol(String symbol) {
+    return SYMBOL_TO_ENUM.getOrDefault(symbol, Set.of());
   }
 
-  static Optional<Currency> fromNumericCode(int numericCode) {
-    return Optional.ofNullable(numericCodeToEnum.get(numericCode));
-  }
-
-  String[] getSymbols() {
-    return symbols;
-  }
-
-  int getNumericCode() {
-    return numericCode;
-  }
-
-  int getMinorUnit() {
-    return minorUnit;
+  public static Optional<Currency> fromNumericCode(int numericCode) {
+    return Optional.ofNullable(NUMERIC_CODE_TO_ENUM.get(numericCode));
   }
 
   private static Entry<String, Currency> getSymbolCurrencyEntry(Currency currency, String symbol) {
@@ -105,6 +107,18 @@ public enum Currency {
       }
 
     };
+  }
+
+  public List<String> getSymbols() {
+    return symbols;
+  }
+
+  public int getNumericCode() {
+    return numericCode;
+  }
+
+  public int getMinorUnit() {
+    return minorUnit;
   }
 
 }
