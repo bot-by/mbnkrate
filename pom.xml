@@ -348,6 +348,7 @@
   <modules>
     <module>mbnkrate-core</module>
     <module>mbnkrate-gson</module>
+    <module>mbnkrate-jackson</module>
   </modules>
   <name>Monobank Currency Rate</name>
   <organization>
