@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 Vitalij Berdinskih
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *	   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package uk.bot_by.monobank.currency_rate;
 
 import java.util.List;
@@ -66,11 +81,11 @@ public enum Currency {
     this(numericCode, TWO_DIGITS, new String[0]);
   }
 
-  static Set<Currency> fromSymbol(String symbol) {
+  public static Set<Currency> fromSymbol(String symbol) {
     return SYMBOL_TO_ENUM.getOrDefault(symbol, Set.of());
   }
 
-  static Optional<Currency> fromNumericCode(int numericCode) {
+  public static Optional<Currency> fromNumericCode(int numericCode) {
     return Optional.ofNullable(NUMERIC_CODE_TO_ENUM.get(numericCode));
   }
 
@@ -94,15 +109,15 @@ public enum Currency {
     };
   }
 
-  List<String> getSymbols() {
+  public List<String> getSymbols() {
     return symbols;
   }
 
-  int getNumericCode() {
+  public int getNumericCode() {
     return numericCode;
   }
 
-  int getMinorUnit() {
+  public int getMinorUnit() {
     return minorUnit;
   }
 

@@ -13,28 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.bot_by.monobank.currency_rate;
+package uk.bot_by.monobank.currency_rate.gson;
 
 import feign.RequestLine;
 import java.util.List;
+import uk.bot_by.monobank.currency_rate.CurrencyRateService;
 
-/**
- * Monobank Currency API
- */
-public interface CurrencyRateService {
+public interface GsonCurrencyRateService extends CurrencyRateService {
 
-  String GET_BANK_CURRENCY = "GET /bank/currency";
-
-  /**
-   * Get a list of Monobank's exchange rates.
-   * <p>
-   * <strong>Important:</strong><br>
-   * the data are cached and updated not more than once every 5 minutes.
-   *
-   * @return list of currency rates
-   * @see CurrencyRate
-   */
+  @Override
   @RequestLine(GET_BANK_CURRENCY)
-  List<? extends CurrencyRate> getCurrencyRates();
+  List<GsonCurrencyRate> getCurrencyRates();
 
 }

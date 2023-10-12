@@ -220,12 +220,22 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
+        <artifactId>mbnkrate-core</artifactId>
+        <groupId>uk.bot-by.monobank</groupId>
+        <version>${revision}${changelist}${sha1}</version>
+      </dependency>
+      <dependency>
         <artifactId>annotations</artifactId>
         <groupId>org.jetbrains</groupId>
         <version>24.0.1</version>
       </dependency>
       <dependency>
         <artifactId>feign-core</artifactId>
+        <groupId>io.github.openfeign</groupId>
+        <version>${feign.version}</version>
+      </dependency>
+      <dependency>
+        <artifactId>feign-java11</artifactId>
         <groupId>io.github.openfeign</groupId>
         <version>${feign.version}</version>
       </dependency>
@@ -298,6 +308,18 @@
         <scope>test</scope>
         <version>20230618</version>
       </dependency>
+      <dependency>
+        <artifactId>mockserver-junit-jupiter</artifactId>
+        <groupId>org.mock-server</groupId>
+        <scope>test</scope>
+        <version>5.15.0</version>
+      </dependency>
+      <dependency>
+        <artifactId>slf4j-nop</artifactId>
+        <groupId>org.slf4j</groupId>
+        <scope>test</scope>
+        <version>2.0.9</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
   <developers>
@@ -325,6 +347,7 @@
   <modelVersion>4.0.0</modelVersion>
   <modules>
     <module>mbnkrate-core</module>
+    <module>mbnkrate-gson</module>
   </modules>
   <name>Monobank Currency Rate</name>
   <organization>

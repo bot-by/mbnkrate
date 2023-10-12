@@ -13,7 +13,7 @@ When creating a new issue, try following [necolas's guidelines][issue-guidelines
 
 ## Fork, patch and contribute code
 
-Feel free to fork **SLF4J for AWS Lambda**'s repository at [GitLab][bot-gitlab]
+Feel free to fork **mbnkrate**'s repository at [GitLab][bot-gitlab]
 or [GitHub][bot-github] for your own use and updates.
 
 Contribute your fixes and new features back to the main codebase using
