@@ -123,7 +123,9 @@ class GsonTest {
     try (InputStream rateSource = requireNonNull(
         getClass().getResourceAsStream("too_many_requests.json"), "JSON source is absent")) {
       // given
-      var messagePattern = "\\[429 Mocked\\] during \\[GET\\] to \\[(.+)/bank/currency\\] \\[(.+)#getCurrencyRates\\(\\)\\]: \\[\\{\"errorDescription\":\"Too many requests\"\\}\\]";
+      var messagePattern = "\\[429 Mocked\\] during \\[GET\\] to \\[(.+)/bank/currency\\] "
+          + "\\[(.+)#getCurrencyRates\\(\\)\\]: "
+          + "\\[\\{\"errorDescription\":\"Too many requests\"\\}\\]";
       String responseBody = new BufferedReader(
           new InputStreamReader(rateSource, StandardCharsets.UTF_8)).lines()
           .collect(Collectors.joining("\n"));
