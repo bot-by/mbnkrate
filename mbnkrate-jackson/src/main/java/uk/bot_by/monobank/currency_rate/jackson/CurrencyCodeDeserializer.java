@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2023 Witalij Berdinskich
+ * Copyright 2023 Vitalij Berdinskih
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,9 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import java.io.IOException;
 import uk.bot_by.monobank.currency_rate.Currency;
 
+/**
+ * The Jackson deserializer converts the currency numeric code (ISO 4217) to {@link Currency}.
+ */
 public class CurrencyCodeDeserializer extends JsonDeserializer<Currency> {
 
   @Override

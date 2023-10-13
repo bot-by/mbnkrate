@@ -34,7 +34,7 @@ class UnixTimeDeserializerTest {
 
   @DisplayName("Read timestamp")
   @Test
-  public void readTimestamp() throws IOException {
+  public void readUnixTime() throws IOException {
     // given
     when(parser.getLongValue()).thenReturn(1628370606L);
 

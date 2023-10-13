@@ -5,10 +5,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.text.MatchesPattern.matchesPattern;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
 
@@ -29,6 +31,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockserver.client.MockServerClient;
 import org.mockserver.junit.jupiter.MockServerExtension;
 import uk.bot_by.monobank.currency_rate.Currency;
+import uk.bot_by.monobank.currency_rate.CurrencyRateFactory;
 import uk.bot_by.monobank.currency_rate.CurrencyRateService;
 
 @ExtendWith(MockServerExtension.class)
@@ -145,6 +148,17 @@ class GsonTest {
       assertAll("Too many requests", () -> assertEquals(429, exception.status(), "status"),
           () -> assertThat("message", exception.getMessage(), matchesPattern(messagePattern)));
     }
+  }
+
+  @DisplayName("Get a service provider")
+  @Test
+  void getServiceProvider() {
+    // when
+    var serviceProvider = assertDoesNotThrow(CurrencyRateFactory::getServiceProvider);
+
+    // then
+    assertAll("Service provider", () -> assertNotNull(serviceProvider),
+        () -> assertTrue(serviceProvider instanceof GsonCurrencyRateServiceProvider));
   }
 
 }

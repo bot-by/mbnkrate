@@ -15,7 +15,6 @@
  */
 package uk.bot_by.monobank.currency_rate;
 
-import feign.RequestLine;
 import java.util.List;
 
 /**
@@ -34,7 +33,6 @@ public interface CurrencyRateService {
    * @return list of currency rates
    * @see CurrencyRate
    */
-  @RequestLine(GET_BANK_CURRENCY)
   List<? extends CurrencyRate> getCurrencyRates();
 
 }

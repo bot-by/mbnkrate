@@ -255,6 +255,16 @@
         <version>${feign.version}</version>
       </dependency>
       <dependency>
+        <artifactId>jackson-jr-objects</artifactId>
+        <groupId>com.fasterxml.jackson.jr</groupId>
+        <version>${jackson-jr.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.jr</groupId>
+        <artifactId>jackson-jr-annotation-support</artifactId>
+        <version>${jackson-jr.version}</version>
+      </dependency>
+      <dependency>
         <artifactId>feign-json</artifactId>
         <groupId>io.github.openfeign</groupId>
         <version>${feign.version}</version>
@@ -326,7 +336,7 @@
     <developer>
       <email>vitalij_r2@outlook.com</email>
       <id>vitalijr2</id>
-      <name>Witalij Berdinskich</name>
+      <name>Vitalij Berdinskih</name>
       <timezone>Europe/Kyiv</timezone>
       <url>https://gitlab.com/vitalijr2</url>
     </developer>
@@ -349,6 +359,7 @@
     <module>mbnkrate-core</module>
     <module>mbnkrate-gson</module>
     <module>mbnkrate-jackson</module>
+    <module>mbnkrate-jackson-jr</module>
   </modules>
   <name>Monobank Currency Rate</name>
   <organization>
@@ -359,6 +370,7 @@
   <properties>
     <changelist>-SNAPSHOT</changelist>
     <feign.version>12.5</feign.version>
+    <jackson-jr.version>2.15.1</jackson-jr.version>
     <junit-jupiter.version>5.10.0</junit-jupiter.version>
     <mockito.version>5.6.0</mockito.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

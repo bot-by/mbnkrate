@@ -13,27 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.bot_by.monobank.currency_rate.jackson;
+package uk.bot_by.monobank.currency_rate.jackson_jr;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.math.BigDecimal;
 import java.time.Instant;
 import uk.bot_by.monobank.currency_rate.Currency;
 import uk.bot_by.monobank.currency_rate.CurrencyRate;
 
-public class JacksonCurrencyRate implements CurrencyRate {
+public class JacksonJrCurrencyRate implements CurrencyRate {
 
-  @JsonDeserialize(using = CurrencyCodeDeserializer.class)
   @JsonProperty("currencyCodeA")
   private Currency currencyA;
-  @JsonDeserialize(using = CurrencyCodeDeserializer.class)
   @JsonProperty("currencyCodeB")
   private Currency currencyB;
-  @JsonDeserialize(using = UnixTimeDeserializer.class)
+  @JsonProperty("date")
   private Instant date;
+  @JsonProperty("rateBuy")
   private BigDecimal rateBuy;
+  @JsonProperty("rateCross")
   private BigDecimal rateCross;
+  @JsonProperty("rateSell")
   private BigDecimal rateSell;
 
   @Override

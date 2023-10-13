@@ -38,7 +38,7 @@ public class UnixTimeTypeAdapterTest {
 
   @DisplayName("Read timestamp")
   @Test
-  public void readTimestamp() throws IOException {
+  public void readUnixTime() throws IOException {
     // given
     when(reader.peek()).thenReturn(JsonToken.NUMBER);
     when(reader.nextLong()).thenReturn(1628370606L);
@@ -72,7 +72,7 @@ public class UnixTimeTypeAdapterTest {
 
   @DisplayName("Write timestamp")
   @Test
-  public void writeTimestamp() throws IOException {
+  public void writeUnixTime() throws IOException {
     // given
     Instant timestamp = Instant.ofEpochSecond(1628370606);
 

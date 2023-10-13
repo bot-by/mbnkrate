@@ -32,7 +32,7 @@ public class CurrencyRateFactory {
    * @return a service provider instance
    * @throws NoSuchElementException if there are no API service providers
    */
-  static CurrencyRateServiceProvider getServiceProvider() throws NoSuchElementException {
+  public static CurrencyRateServiceProvider getServiceProvider() throws NoSuchElementException {
     var serviceProviders = ServiceLoader.load(CurrencyRateServiceProvider.class);
 
     return serviceProviders.findFirst()

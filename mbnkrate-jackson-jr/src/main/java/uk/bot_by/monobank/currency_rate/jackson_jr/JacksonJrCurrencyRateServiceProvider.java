@@ -13,32 +13,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.bot_by.monobank.currency_rate.jackson;
+package uk.bot_by.monobank.currency_rate.jackson_jr;
 
+import com.fasterxml.jackson.jr.annotationsupport.JacksonAnnotationExtension;
+import com.fasterxml.jackson.jr.ob.JacksonJrExtension;
+import com.fasterxml.jackson.jr.ob.api.ExtensionContext;
 import feign.Feign;
 import feign.http2client.Http2Client;
-import feign.jackson.JacksonDecoder;
+import feign.jackson.jr.JacksonJrDecoder;
+import java.util.List;
 import org.jetbrains.annotations.VisibleForTesting;
 import uk.bot_by.monobank.currency_rate.CurrencyRateService;
 import uk.bot_by.monobank.currency_rate.CurrencyRateServiceProvider;
 
-public class JacksonCurrencyRateServiceProvider implements CurrencyRateServiceProvider {
+public class JacksonJrCurrencyRateServiceProvider implements CurrencyRateServiceProvider {
 
   private final String locator;
 
-  public JacksonCurrencyRateServiceProvider() {
+  public JacksonJrCurrencyRateServiceProvider() {
     this(API_MONOBANK_UA);
   }
 
   @VisibleForTesting
-  JacksonCurrencyRateServiceProvider(String locator) {
+  JacksonJrCurrencyRateServiceProvider(String locator) {
     this.locator = locator;
   }
 
   @Override
   public CurrencyRateService getService() {
-    return Feign.builder().client(new Http2Client()).decoder(new JacksonDecoder())
-        .target(JacksonCurrencyRateService.class, locator);
+    var currencyRateExtension = new JacksonJrExtension() {
+      @Override
+      protected void register(ExtensionContext context) {
+        context.insertProvider(new CurrencyCodeProvider());
+        context.insertProvider(new UnixTimeProvider());
+      }
+    };
+
+    return Feign.builder().client(new Http2Client()).decoder(
+            new JacksonJrDecoder(List.of(JacksonAnnotationExtension.std, currencyRateExtension)))
+        .target(JacksonJrCurrencyRateService.class, locator);
   }
 
 }
