@@ -264,11 +264,6 @@
         <artifactId>jackson-jr-annotation-support</artifactId>
         <version>${jackson-jr.version}</version>
       </dependency>
-      <dependency>
-        <artifactId>feign-json</artifactId>
-        <groupId>io.github.openfeign</groupId>
-        <version>${feign.version}</version>
-      </dependency>
       <!-- test -->
       <dependency>
         <artifactId>junit-jupiter-api</artifactId>
