@@ -1,4 +1,4 @@
-package uk.bot_by.monobank.currency_rate.gson;
+package uk.bot_by.monobank.currency_rate.jackson;
 
 import static java.util.Objects.requireNonNull;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -36,7 +36,7 @@ import uk.bot_by.monobank.currency_rate.CurrencyRateService;
 
 @ExtendWith(MockServerExtension.class)
 @Tag("slow")
-class GsonTest {
+class JacksonTest {
 
   private static final String MOCKSERVER_LOCATOR = "http://localhost:%s/";
 
@@ -44,7 +44,7 @@ class GsonTest {
 
   @BeforeEach
   void setUp(MockServerClient mockServerClient) {
-    currencyRateService = (new GsonCurrencyRateServiceProvider(
+    currencyRateService = (new JacksonCurrencyRateServiceProvider(
         String.format(MOCKSERVER_LOCATOR, mockServerClient.getPort()))).getService();
 
     mockServerClient.reset();
@@ -158,7 +158,7 @@ class GsonTest {
 
     // then
     assertAll("Service provider", () -> assertNotNull(serviceProvider),
-        () -> assertTrue(serviceProvider instanceof GsonCurrencyRateServiceProvider));
+        () -> assertTrue(serviceProvider instanceof JacksonCurrencyRateServiceProvider));
   }
 
 }
