@@ -13,16 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.bot_by.monobank.currency_rate.jackson_jr;
+package uk.bot_by.monobank.currency_rate.jackson;
 
+import feign.Headers;
 import feign.RequestLine;
 import java.util.List;
 import uk.bot_by.monobank.currency_rate.CurrencyRateService;
 
-public interface JacksonJrCurrencyRateService extends CurrencyRateService {
+public interface JacksonCurrencyRateService extends CurrencyRateService {
 
   @Override
-  @RequestLine(GET_BANK_CURRENCY)
-  List<JacksonJrCurrencyRate> getCurrencyRates();
+  @Headers({"User-Agent: @project.artifactId@/@project.version@ (Java HttpClient)",
+      "Accept: application/json"})
+  @RequestLine(GET_CURRENCY_RATES)
+  List<JacksonCurrencyRate> getCurrencyRates();
 
 }

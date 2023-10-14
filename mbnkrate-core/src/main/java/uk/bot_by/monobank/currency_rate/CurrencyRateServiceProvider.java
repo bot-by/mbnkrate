@@ -15,18 +15,46 @@
  */
 package uk.bot_by.monobank.currency_rate;
 
+import feign.Client;
+import feign.Feign;
+import feign.codec.Decoder;
+import feign.http2client.Http2Client;
+import org.jetbrains.annotations.VisibleForTesting;
+
 /**
  * Monobank Currency API Service Provider
  */
-public interface CurrencyRateServiceProvider {
+public abstract class CurrencyRateServiceProvider {
 
-  String API_MONOBANK_UA = "https://api.monobank.ua/";
+  public static final String MONOBANK_API = "https://api.monobank.ua/";
+
+  private final String locator;
+
+  public CurrencyRateServiceProvider() {
+    this(MONOBANK_API);
+  }
+
+  @VisibleForTesting
+  protected CurrencyRateServiceProvider(String locator) {
+    this.locator = locator;
+  }
 
   /**
    * Get an instance of Monobank Currency API.
    *
    * @return an API instance
    */
-  CurrencyRateService getService();
+  public final CurrencyRateService getService() {
+    return Feign.builder().client(getClient()).decoder(getDecoder())
+        .target(getApiType(), locator);
+  }
+
+  protected Client getClient() {
+    return new Http2Client();
+  }
+
+  protected abstract Decoder getDecoder();
+
+  protected abstract Class<? extends CurrencyRateService> getApiType();
 
 }

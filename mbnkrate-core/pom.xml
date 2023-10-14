@@ -35,6 +35,18 @@
     </plugins>
   </build>
   <dependencies>
+    <dependency>
+      <artifactId>annotations</artifactId>
+      <groupId>org.jetbrains</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>feign-core</artifactId>
+      <groupId>io.github.openfeign</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>feign-java11</artifactId>
+      <groupId>io.github.openfeign</groupId>
+    </dependency>
     <!-- test -->
     <dependency>
       <artifactId>junit-jupiter-api</artifactId>

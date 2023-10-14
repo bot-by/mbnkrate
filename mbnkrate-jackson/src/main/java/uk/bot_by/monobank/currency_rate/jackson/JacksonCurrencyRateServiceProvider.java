@@ -15,30 +15,31 @@
  */
 package uk.bot_by.monobank.currency_rate.jackson;
 
-import feign.Feign;
-import feign.http2client.Http2Client;
+import feign.codec.Decoder;
 import feign.jackson.JacksonDecoder;
 import org.jetbrains.annotations.VisibleForTesting;
 import uk.bot_by.monobank.currency_rate.CurrencyRateService;
 import uk.bot_by.monobank.currency_rate.CurrencyRateServiceProvider;
 
-public class JacksonCurrencyRateServiceProvider implements CurrencyRateServiceProvider {
-
-  private final String locator;
+public class JacksonCurrencyRateServiceProvider extends CurrencyRateServiceProvider {
 
   public JacksonCurrencyRateServiceProvider() {
-    this(API_MONOBANK_UA);
+    super();
   }
 
   @VisibleForTesting
   JacksonCurrencyRateServiceProvider(String locator) {
-    this.locator = locator;
+    super(locator);
   }
 
   @Override
-  public CurrencyRateService getService() {
-    return Feign.builder().client(new Http2Client()).decoder(new JacksonDecoder())
-        .target(JacksonCurrencyRateService.class, locator);
+  protected Decoder getDecoder() {
+    return new JacksonDecoder();
+  }
+
+  @Override
+  protected Class<? extends CurrencyRateService> getApiType() {
+    return JacksonCurrencyRateService.class;
   }
 
 }

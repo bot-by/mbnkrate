@@ -15,6 +15,7 @@
  */
 package uk.bot_by.monobank.currency_rate.gson;
 
+import feign.Headers;
 import feign.RequestLine;
 import java.util.List;
 import uk.bot_by.monobank.currency_rate.CurrencyRateService;
@@ -22,7 +23,9 @@ import uk.bot_by.monobank.currency_rate.CurrencyRateService;
 public interface GsonCurrencyRateService extends CurrencyRateService {
 
   @Override
-  @RequestLine(GET_BANK_CURRENCY)
+  @Headers({"User-Agent: @project.artifactId@/@project.version@ (Java HttpClient)",
+      "Accept: application/json"})
+  @RequestLine(GET_CURRENCY_RATES)
   List<GsonCurrencyRate> getCurrencyRates();
 
 }

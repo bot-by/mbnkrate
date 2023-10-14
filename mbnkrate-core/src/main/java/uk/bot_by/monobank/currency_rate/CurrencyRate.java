@@ -36,8 +36,9 @@ import java.time.Instant;
  *     <li>or <code>rateCross</code></li>
  * </ul>
  *
- * @see <a href="https://api.monobank.ua/docs/#/definitions/CurrencyInfo">CurrencyInfo: перелік
- * курсів</a>
+ * @see <a
+ * href="https://api.monobank.ua/docs/#tag/Publichni-dani/paths/~1bank~1currency/get">Monobank open
+ * API (v2303): Отримання курсів валют</a>
  */
 public interface CurrencyRate {
 
