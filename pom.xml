@@ -324,7 +324,7 @@
         <artifactId>json</artifactId>
         <groupId>org.json</groupId>
         <scope>test</scope>
-        <version>20230618</version>
+        <version>20231013</version>
       </dependency>
       <dependency>
         <artifactId>mockserver-junit-jupiter</artifactId>
