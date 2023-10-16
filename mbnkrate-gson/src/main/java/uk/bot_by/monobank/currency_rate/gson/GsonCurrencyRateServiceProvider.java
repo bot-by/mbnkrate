@@ -15,30 +15,31 @@
  */
 package uk.bot_by.monobank.currency_rate.gson;
 
-import feign.Feign;
+import feign.codec.Decoder;
 import feign.gson.GsonDecoder;
-import feign.http2client.Http2Client;
 import org.jetbrains.annotations.VisibleForTesting;
 import uk.bot_by.monobank.currency_rate.CurrencyRateService;
 import uk.bot_by.monobank.currency_rate.CurrencyRateServiceProvider;
 
-public class GsonCurrencyRateServiceProvider implements CurrencyRateServiceProvider {
-
-  private final String locator;
+public class GsonCurrencyRateServiceProvider extends CurrencyRateServiceProvider {
 
   public GsonCurrencyRateServiceProvider() {
-    this(API_MONOBANK_UA);
+    super();
   }
 
   @VisibleForTesting
   GsonCurrencyRateServiceProvider(String locator) {
-    this.locator = locator;
+    super(locator);
   }
 
   @Override
-  public CurrencyRateService getService() {
-    return Feign.builder().client(new Http2Client()).decoder(new GsonDecoder())
-        .target(GsonCurrencyRateService.class, locator);
+  protected Decoder getDecoder() {
+    return new GsonDecoder();
+  }
+
+  @Override
+  protected Class<? extends CurrencyRateService> getApiType() {
+    return GsonCurrencyRateService.class;
   }
 
 }

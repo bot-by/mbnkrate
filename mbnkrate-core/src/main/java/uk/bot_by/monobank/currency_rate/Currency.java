@@ -23,6 +23,16 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Currency entity.
+ * <p>
+ * Monobank™ provides exchange rates for these currencies.
+ * <p>
+ * If you meet the {@link IllegalStateException} exception with message <em>&quot;Unknown currency
+ * numeric code: xxx&quot;</em> please <a
+ * href="https://gitlab.com/bot-by/monobank/mbnkrate/-/issues/?label_name%5B%5D=bug">add an
+ * issue</a>.
+ */
 public enum Currency {
 
   UAH(980, "₴"), USD(840, "$", "US$", "U$"), EUR(978, "€"), GBP(826, "£"), JPY(392, 0, "¥"), CHF(
@@ -49,6 +59,7 @@ public enum Currency {
       886), ZAR(710, "R");
 
   private static final int TWO_DIGITS = 2;
+
   private static final Map<String, Set<Currency>> SYMBOL_TO_ENUM = Stream.of(values())
       .filter(currency -> !currency.getSymbols().isEmpty()).flatMap(
           currency -> currency.symbols.stream()
@@ -81,16 +92,37 @@ public enum Currency {
     this(numericCode, TWO_DIGITS, new String[0]);
   }
 
+  /**
+   * Get currency by its symbol.
+   * <p>
+   * Returns the set of currencies that use this symbol.
+   *
+   * @param symbol currency symbol or abbreviation
+   * @return set of currencies, may be empty if the symbol is unknown
+   * @see <a href="https://en.wikipedia.org/wiki/Currency_symbol">Currency Symbol</a>
+   * @see <a href="https://www.xe.com/symbols/">World Currency Symbols</a>
+   */
   public static Set<Currency> fromSymbol(String symbol) {
     return SYMBOL_TO_ENUM.getOrDefault(symbol, Set.of());
   }
 
+  /**
+   * Get currency by its numeric code.
+   * <p>
+   * Returns a currency with this numeric code.
+   *
+   * @param numericCode numeric code from
+   * @return currency, optional
+   * @see <a href="https://en.wikipedia.org/wiki/ISO_4217">ISO 4217</a>
+   */
   public static Optional<Currency> fromNumericCode(int numericCode) {
     return Optional.ofNullable(NUMERIC_CODE_TO_ENUM.get(numericCode));
   }
 
   private static Entry<String, Currency> getSymbolCurrencyEntry(Currency currency, String symbol) {
+
     return new Entry<>() {
+
       @Override
       public String getKey() {
         return symbol;
@@ -107,16 +139,34 @@ public enum Currency {
       }
 
     };
+
   }
 
+  /**
+   * Get symbols of currency
+   *
+   * @return list of symbols, may be empty
+   * @see #fromSymbol(String)
+   */
   public List<String> getSymbols() {
     return symbols;
   }
 
+  /**
+   * Get numeric code of currency
+   *
+   * @return numeric code
+   * @see #fromNumericCode(int)
+   */
   public int getNumericCode() {
     return numericCode;
   }
 
+  /**
+   * The number of digits after the decimal separator.
+   *
+   * @return minor units
+   */
   public int getMinorUnit() {
     return minorUnit;
   }

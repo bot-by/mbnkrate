@@ -21,6 +21,10 @@
   <build>
     <plugins>
       <plugin>
+        <artifactId>templating-maven-plugin</artifactId>
+        <groupId>org.codehaus.mojo</groupId>
+      </plugin>
+      <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <groupId>org.apache.maven.plugins</groupId>
       </plugin>
@@ -54,10 +58,6 @@
     <dependency>
       <artifactId>jackson-jr-annotation-support</artifactId>
       <groupId>com.fasterxml.jackson.jr</groupId>
-    </dependency>
-    <dependency>
-      <artifactId>feign-java11</artifactId>
-      <groupId>io.github.openfeign</groupId>
     </dependency>
     <!-- test -->
     <dependency>

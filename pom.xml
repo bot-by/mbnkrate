@@ -23,6 +23,19 @@
     <pluginManagement>
       <plugins>
         <plugin>
+          <artifactId>templating-maven-plugin</artifactId>
+          <executions>
+            <execution>
+              <goals>
+                <goal>filter-sources</goal>
+              </goals>
+              <id>filter-sources</id>
+            </execution>
+          </executions>
+          <groupId>org.codehaus.mojo</groupId>
+          <version>1.0.0</version>
+        </plugin>
+        <plugin>
           <artifactId>maven-resources-plugin</artifactId>
           <configuration>
             <propertiesEncoding>ISO-8859-1</propertiesEncoding>
@@ -311,7 +324,7 @@
         <artifactId>json</artifactId>
         <groupId>org.json</groupId>
         <scope>test</scope>
-        <version>20230618</version>
+        <version>20231013</version>
       </dependency>
       <dependency>
         <artifactId>mockserver-junit-jupiter</artifactId>
@@ -365,7 +378,7 @@
   <properties>
     <changelist>-SNAPSHOT</changelist>
     <feign.version>12.5</feign.version>
-    <jackson-jr.version>2.15.1</jackson-jr.version>
+    <jackson-jr.version>2.15.3</jackson-jr.version>
     <junit-jupiter.version>5.10.0</junit-jupiter.version>
     <mockito.version>5.6.0</mockito.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

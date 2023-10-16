@@ -22,16 +22,18 @@ import java.util.List;
  */
 public interface CurrencyRateService {
 
-  String GET_BANK_CURRENCY = "GET /bank/currency";
+  String GET_CURRENCY_RATES = "GET /bank/currency";
 
   /**
-   * Get a list of Monobank's exchange rates.
+   * Get a list exchange rates of Monobank.
    * <p>
    * <strong>Important:</strong><br>
-   * the data are cached and updated not more than once every 5 minutes.
+   * the data must be cached and updated not more than once every 5 minutes.
    *
    * @return list of currency rates
-   * @see CurrencyRate
+   * @see <a
+   * href="https://api.monobank.ua/docs/#tag/Publichni-dani/paths/~1bank~1currency/get">Monobank
+   * open API (v2303): Отримання курсів валют</a>
    */
   List<? extends CurrencyRate> getCurrencyRates();
 
