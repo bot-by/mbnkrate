@@ -76,10 +76,6 @@
       <artifactId>hamcrest-optional</artifactId>
       <groupId>com.github.npathai</groupId>
     </dependency>
-    <dependency>
-      <artifactId>json</artifactId>
-      <groupId>org.json</groupId>
-    </dependency>
   </dependencies>
   <modelVersion>4.0.0</modelVersion>
   <name>Currency Rate Core</name>

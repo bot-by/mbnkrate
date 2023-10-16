@@ -321,12 +321,6 @@
         <version>2.0.0</version>
       </dependency>
       <dependency>
-        <artifactId>json</artifactId>
-        <groupId>org.json</groupId>
-        <scope>test</scope>
-        <version>20230618</version>
-      </dependency>
-      <dependency>
         <artifactId>mockserver-junit-jupiter</artifactId>
         <groupId>org.mock-server</groupId>
         <scope>test</scope>
