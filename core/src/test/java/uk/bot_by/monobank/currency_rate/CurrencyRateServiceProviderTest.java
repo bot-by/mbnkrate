@@ -1,5 +1,7 @@
 package uk.bot_by.monobank.currency_rate;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.IsInstanceOf.instanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
@@ -7,6 +9,7 @@ import static org.mockito.Mockito.verify;
 import feign.Client;
 import feign.RequestLine;
 import feign.codec.Decoder;
+import feign.http2client.Http2Client;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -33,6 +36,13 @@ class CurrencyRateServiceProviderTest {
   @BeforeEach
   void setUp() {
     serviceType = TestCurrencyRateService.class;
+  }
+
+  @DisplayName("Get a client")
+  @Test
+  void client() {
+    // when and then
+    assertThat(provider.getClient(), instanceOf(Http2Client.class));
   }
 
   @DisplayName("Get a service")
