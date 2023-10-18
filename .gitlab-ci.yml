@@ -53,3 +53,21 @@ codacy:
     - bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r mbnkrate-core/target/site/jacoco/jacoco.xml
   rules:
     - if: $CODACY_PROJECT_TOKEN && $CI_COMMIT_TAG == null
+
+deploy:
+  stage: release
+  script:
+    - ./mvnw $MAVEN_CLI_OPTS -s ci_settings.xml -pl core,logger,json-logger,. -am deploy -ntp -Dchangelist= -Psources,javadocs,sign-and-deploy
+  only:
+    - tags
+
+pages:
+  stage: release
+  script:
+    - cp changelog.md src/site/markdown
+    - ./mvnw $MAVEN_CLI_OPTS -pl . verify site site:stage -Dchangelist= -Pjavadocs,site
+  artifacts:
+    paths:
+      - public
+  only:
+    - tags
