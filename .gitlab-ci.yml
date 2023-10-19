@@ -9,7 +9,10 @@ include:
 cache:
   paths:
     - .m2/repository
-    - mbnkrate-core/target
+    - core/target
+    - gson/target
+    - jackson/target
+    - jackson-jr/target
 
 stages:
   - build
@@ -31,8 +34,14 @@ test:
   artifacts:
     reports:
       junit:
-        - mbnkrate-core/target/surefire-reports/TEST-*.xml
-        - mbnkrate-core/target/failsafe-reports/TEST-*.xml
+        - core/target/surefire-reports/TEST-*.xml
+        - core/target/failsafe-reports/TEST-*.xml
+        - gson/target/surefire-reports/TEST-*.xml
+        - gson/target/failsafe-reports/TEST-*.xml
+        - jackson/target/surefire-reports/TEST-*.xml
+        - jackson/target/failsafe-reports/TEST-*.xml
+        - jackson-jr/target/surefire-reports/TEST-*.xml
+        - jackson-jr/target/failsafe-reports/TEST-*.xml
   rules:
     - if: $CI_COMMIT_TAG == null
 
