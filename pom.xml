@@ -160,7 +160,39 @@
             </execution>
           </executions>
           <groupId>org.jacoco</groupId>
-          <version>0.8.10</version>
+          <version>0.8.11</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-source-plugin</artifactId>
+          <groupId>org.apache.maven.plugins</groupId>
+          <version>3.3.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <groupId>org.apache.maven.plugins</groupId>
+          <version>${javadoc-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <artifactId>sign-maven-plugin</artifactId>
+          <groupId>org.simplify4u.plugins</groupId>
+          <version>1.0.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>nexus-staging-maven-plugin</artifactId>
+          <groupId>org.sonatype.plugins</groupId>
+          <version>1.6.13</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-site-plugin</artifactId>
+          <dependencies>
+            <dependency>
+              <artifactId>docs-maven-skin</artifactId>
+              <groupId>com.bernardomg.maven.skins</groupId>
+              <version>2.3.2</version>
+            </dependency>
+          </dependencies>
+          <groupId>org.apache.maven.plugins</groupId>
+          <version>3.12.1</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -267,16 +299,6 @@
         <groupId>io.github.openfeign</groupId>
         <version>${feign.version}</version>
       </dependency>
-      <dependency>
-        <artifactId>jackson-jr-objects</artifactId>
-        <groupId>com.fasterxml.jackson.jr</groupId>
-        <version>${jackson-jr.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.fasterxml.jackson.jr</groupId>
-        <artifactId>jackson-jr-annotation-support</artifactId>
-        <version>${jackson-jr.version}</version>
-      </dependency>
       <!-- test -->
       <dependency>
         <artifactId>junit-jupiter-api</artifactId>
@@ -321,12 +343,6 @@
         <version>2.0.0</version>
       </dependency>
       <dependency>
-        <artifactId>json</artifactId>
-        <groupId>org.json</groupId>
-        <scope>test</scope>
-        <version>20231013</version>
-      </dependency>
-      <dependency>
         <artifactId>mockserver-junit-jupiter</artifactId>
         <groupId>org.mock-server</groupId>
         <scope>test</scope>
@@ -340,6 +356,10 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+  <description>Unofficial wrapper for Monobank Currency Rate API.
+    You can choose an artifact that depends on your favorite JSON library:
+    Gson, Jackson or Jackson Jr.
+  </description>
   <developers>
     <developer>
       <email>vitalij_r2@outlook.com</email>
@@ -364,21 +384,94 @@
   </licenses>
   <modelVersion>4.0.0</modelVersion>
   <modules>
-    <module>mbnkrate-core</module>
-    <module>mbnkrate-gson</module>
-    <module>mbnkrate-jackson</module>
-    <module>mbnkrate-jackson-jr</module>
+    <module>core</module>
+    <module>gson</module>
+    <module>jackson</module>
+    <module>jackson-jr</module>
   </modules>
-  <name>Monobank Currency Rate</name>
+  <name>The client for Monobank Currency Rate API</name>
   <organization>
     <name>bot-by</name>
     <url>https://bot-by.uk</url>
   </organization>
   <packaging>pom</packaging>
+  <profiles>
+    <profile>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <configuration>
+              <additionalJOptions>
+                <additionalJOption>
+                  -J-Dhttp.agent=maven-javadoc-plugin_${project.groupId}:${project.artifactId}
+                </additionalJOption>
+              </additionalJOptions>
+              <additionalOptions>
+                <additionalOption>--allow-script-in-comments</additionalOption>
+              </additionalOptions>
+              <bottom><![CDATA[
+<script type="text/javascript" src="{@docRoot}/resources/prism.js"></script>
+							]]></bottom>
+              <docfilessubdirs>true</docfilessubdirs>
+              <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
+              <links>
+                <link>https://javadoc.io/doc/io.github.openfeign/feign-core/${feign.version}/</link>
+                <!--
+                <link>https://javadoc.io/doc/io.github.openfeign/feign-java11/${feign.version}/</link>
+                -->
+                <link>https://javadoc.io/doc/io.github.openfeign/feign-gson/${feign.version}/</link>
+                <link>https://javadoc.io/doc/com.google.code.gson/gson/${gson.version}</link>
+                <link>https://javadoc.io/doc/io.github.openfeign/feign-jackson/${feign.version}/
+                </link>
+                <link>
+                  https://javadoc.io/doc/com.fasterxml.jackson.core/jackson-core/${jackson.version}/
+                </link>
+                <link>
+                  https://javadoc.io/doc/com.fasterxml.jackson.core/jackson-annotations/${jackson.version}/
+                </link>
+                <link>
+                  https://javadoc.io/doc/com.fasterxml.jackson.core/jackson-databind/${jackson.version}/
+                </link>
+                <link>
+                  https://javadoc.io/doc/io.github.openfeign/feign-jackson-jr/${feign.version}/
+                </link>
+                <link>
+                  https://javadoc.io/doc/com.fasterxml.jackson.jr/jackson-jr-objects/${jackson.version}/
+                </link>
+                <link>
+                  https://javadoc.io/doc/com.fasterxml.jackson.jr/jackson-jr-annotation-support/${jackson.version}/
+                </link>
+              </links>
+              <offline>false</offline>
+              <show>protected</show>
+              <top><![CDATA[
+<link rel="stylesheet" type="text/css" href="{@docRoot}/resources/prism.css"/>
+<link rel="stylesheet" type="text/css" href="{@docRoot}/resources/slf4j-aws-lambda.css"/>
+							]]></top>
+            </configuration>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+                <id>attach-javadocs</id>
+              </execution>
+            </executions>
+            <groupId>org.apache.maven.plugins</groupId>
+          </plugin>
+        </plugins>
+      </build>
+      <id>javadocs</id>
+    </profile>
+  </profiles>
   <properties>
     <changelist>-SNAPSHOT</changelist>
+    <feign.client>Java HttpClient</feign.client>
     <feign.version>12.5</feign.version>
-    <jackson-jr.version>2.15.3</jackson-jr.version>
+    <gson.version>2.10.1</gson.version>
+    <jackson.version>2.15.3</jackson.version>
+    <javadoc-plugin.version>3.6.0</javadoc-plugin.version>
     <junit-jupiter.version>5.10.0</junit-jupiter.version>
     <mockito.version>5.6.0</mockito.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
