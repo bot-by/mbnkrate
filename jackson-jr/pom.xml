@@ -59,7 +59,7 @@
   <dependencies>
     <dependency>
       <artifactId>mbnkrate-core</artifactId>
-      <groupId>uk.bot-by.monobank</groupId>
+      <groupId>uk.bot-by.mbnk</groupId>
     </dependency>
     <dependency>
       <artifactId>annotations</artifactId>
@@ -132,7 +132,7 @@
   <packaging>jar</packaging>
   <parent>
     <artifactId>mbnkrate</artifactId>
-    <groupId>uk.bot-by.monobank</groupId>
+    <groupId>uk.bot-by.mbnk</groupId>
     <version>${revision}${changelist}${sha1}</version>
   </parent>
 </project>

@@ -260,13 +260,13 @@
   </build>
   <ciManagement>
     <system>GitLab</system>
-    <url>https://gitlab.com/bot-by/monobank/mbnkrate/-/pipelines</url>
+    <url>https://gitlab.com/bot-by/mbnk/mbnkrate/-/pipelines</url>
   </ciManagement>
   <dependencyManagement>
     <dependencies>
       <dependency>
         <artifactId>mbnkrate-core</artifactId>
-        <groupId>uk.bot-by.monobank</groupId>
+        <groupId>uk.bot-by.mbnk</groupId>
         <version>${revision}${changelist}${sha1}</version>
       </dependency>
       <dependency>
@@ -369,10 +369,10 @@
       <url>https://gitlab.com/vitalijr2</url>
     </developer>
   </developers>
-  <groupId>uk.bot-by.monobank</groupId>
+  <groupId>uk.bot-by.mbnk</groupId>
   <issueManagement>
     <system>GitLab</system>
-    <url>https://gitlab.com/bot-by/monobank/mbnkrate/-/issues</url>
+    <url>https://gitlab.com/bot-by/mbnk/mbnkrate/-/issues</url>
   </issueManagement>
   <licenses>
     <license>
@@ -480,10 +480,10 @@
     <sha1/>
   </properties>
   <scm>
-    <connection>scm:git:https://gitlab.com/bot-by/monobank/mbnkrate.git</connection>
-    <developerConnection>scm:git:git@gitlab.com:bot-by/monobank/mbnkrate.git</developerConnection>
-    <url>https://gitlab.com/bot-by/monobank/mbnkrate</url>
+    <connection>scm:git:https://gitlab.com/bot-by/mbnk/mbnkrate.git</connection>
+    <developerConnection>scm:git:git@gitlab.com:bot-by/mbnk/mbnkrate.git</developerConnection>
+    <url>https://gitlab.com/bot-by/mbnk/mbnkrate</url>
   </scm>
-  <url>https://gitlab.com/bot-by/monobank/mbnkrate</url>
+  <url>https://gitlab.com/bot-by/mbnk/mbnkrate</url>
   <version>${revision}${changelist}${sha1}</version>
 </project>
