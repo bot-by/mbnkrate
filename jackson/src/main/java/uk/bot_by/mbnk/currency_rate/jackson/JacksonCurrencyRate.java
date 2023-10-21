@@ -16,23 +16,25 @@
 package uk.bot_by.mbnk.currency_rate.jackson;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.math.BigDecimal;
 import java.time.Instant;
-import uk.bot_by.mbnk.currency_rate.Currency;
-import uk.bot_by.mbnk.currency_rate.CurrencyRate;
+import uk.bot_by.mbnk.currency_rate.core.Currency;
+import uk.bot_by.mbnk.currency_rate.core.CurrencyRate;
 
 /**
  * This implementation to bind {@link CurrencyRate} with Jackson.
  */
+@JsonPropertyOrder("currencyCodeA,currencyCodeA,date,rateBuy,rateCross,rateSell")
 public class JacksonCurrencyRate implements CurrencyRate {
 
   @JsonDeserialize(using = CurrencyCodeDeserializer.class)
   @JsonProperty("currencyCodeA")
-  private Currency currencyA;
+  private Currency sourceCurrency;
   @JsonDeserialize(using = CurrencyCodeDeserializer.class)
   @JsonProperty("currencyCodeB")
-  private Currency currencyB;
+  private Currency targetCurrency;
   @JsonDeserialize(using = UnixTimeDeserializer.class)
   private Instant date;
   private BigDecimal rateBuy;
@@ -40,13 +42,13 @@ public class JacksonCurrencyRate implements CurrencyRate {
   private BigDecimal rateSell;
 
   @Override
-  public Currency getCurrencyA() {
-    return currencyA;
+  public Currency getSourceCurrency() {
+    return sourceCurrency;
   }
 
   @Override
-  public Currency getCurrencyB() {
-    return currencyB;
+  public Currency getTargetCurrency() {
+    return targetCurrency;
   }
 
   @Override

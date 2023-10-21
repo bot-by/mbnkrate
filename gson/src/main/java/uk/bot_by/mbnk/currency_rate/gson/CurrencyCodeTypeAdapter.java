@@ -22,7 +22,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
-import uk.bot_by.mbnk.currency_rate.Currency;
+import uk.bot_by.mbnk.currency_rate.core.Currency;
 
 /**
  * The <a

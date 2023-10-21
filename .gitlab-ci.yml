@@ -13,6 +13,7 @@ cache:
     - gson/target
     - jackson/target
     - jackson-jr/target
+    - in-memory-store/target
 
 stages:
   - build
@@ -42,6 +43,8 @@ test:
         - jackson/target/failsafe-reports/TEST-*.xml
         - jackson-jr/target/surefire-reports/TEST-*.xml
         - jackson-jr/target/failsafe-reports/TEST-*.xml
+        - in-memory-store/target/surefire-reports/TEST-*.xml
+        - in-memory-store/target/failsafe-reports/TEST-*.xml
   rules:
     - if: $CI_COMMIT_TAG == null
 
@@ -59,14 +62,14 @@ coverage:
 codacy:
   stage: verify
   script:
-    - bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r core/target/site/jacoco/jacoco.xml -r gson/target/site/jacoco/jacoco.xml -r jackson/target/site/jacoco/jacoco.xml -r jackson-jr/target/site/jacoco/jacoco.xml
+    - bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r core/target/site/jacoco/jacoco.xml -r gson/target/site/jacoco/jacoco.xml -r jackson/target/site/jacoco/jacoco.xml -r jackson-jr/target/site/jacoco/jacoco.xml -r in-memory-store/target/site/jacoco/jacoco.xml
   rules:
     - if: $CODACY_PROJECT_TOKEN && $CI_COMMIT_TAG == null
 
 deploy:
   stage: release
   script:
-    - ./mvnw $MAVEN_CLI_OPTS -s ci_settings.xml -pl core,gson,jackson,jackson-jr,. -am deploy -ntp -Dchangelist= -Psources,javadocs,sign-and-deploy
+    - ./mvnw $MAVEN_CLI_OPTS -s ci_settings.xml -pl core,gson,jackson,jackson-jr,in-memory-store,. -am deploy -ntp -Dchangelist= -Psources,javadocs,sign-and-deploy
   only:
     - tags
 

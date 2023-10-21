@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.bot_by.mbnk.currency_rate;
+package uk.bot_by.mbnk.currency_rate.core;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -47,14 +47,14 @@ public interface CurrencyRate {
    *
    * @return source currency
    */
-  Currency getCurrencyA();
+  Currency getSourceCurrency();
 
   /**
    * A target currency.
    *
    * @return target currency
    */
-  Currency getCurrencyB();
+  Currency getTargetCurrency();
 
   /**
    * A timestamp that shows the date and time when the provided exchange rate was updated.

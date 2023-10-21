@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.bot_by.mbnk.currency_rate;
+package uk.bot_by.mbnk.currency_rate.core;
 
 import java.util.List;
 import java.util.Map;
@@ -30,8 +30,7 @@ import java.util.stream.Stream;
  * <p>
  * If you meet the {@link IllegalStateException} exception with message <em>&quot;Unknown currency
  * numeric code: xxx&quot;</em> please <a
- * href="https://gitlab.com/bot-by/mbnk/mbnkrate/-/issues/?label_name%5B%5D=bug">add an
- * issue</a>.
+ * href="https://gitlab.com/bot-by/mbnk/mbnkrate/-/issues/?label_name%5B%5D=bug">add an issue</a>.
  */
 public enum Currency {
 

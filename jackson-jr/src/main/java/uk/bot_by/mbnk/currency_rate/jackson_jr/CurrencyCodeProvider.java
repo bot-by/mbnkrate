@@ -23,7 +23,7 @@ import com.fasterxml.jackson.jr.ob.api.ValueWriter;
 import com.fasterxml.jackson.jr.ob.impl.JSONReader;
 import com.fasterxml.jackson.jr.ob.impl.JSONWriter;
 import java.io.IOException;
-import uk.bot_by.mbnk.currency_rate.Currency;
+import uk.bot_by.mbnk.currency_rate.core.Currency;
 
 /**
  * The Jackson Jr. <a

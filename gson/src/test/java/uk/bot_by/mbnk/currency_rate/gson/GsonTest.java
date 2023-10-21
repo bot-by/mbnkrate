@@ -30,9 +30,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockserver.client.MockServerClient;
 import org.mockserver.junit.jupiter.MockServerExtension;
-import uk.bot_by.mbnk.currency_rate.Currency;
-import uk.bot_by.mbnk.currency_rate.CurrencyRateFactory;
-import uk.bot_by.mbnk.currency_rate.CurrencyRateService;
+import uk.bot_by.mbnk.currency_rate.core.Currency;
+import uk.bot_by.mbnk.currency_rate.core.CurrencyRateFactory;
+import uk.bot_by.mbnk.currency_rate.core.CurrencyRateService;
 
 @ExtendWith(MockServerExtension.class)
 @Tag("slow")
@@ -56,7 +56,7 @@ class GsonTest {
     try (InputStream rateSource = requireNonNull(getClass().getResourceAsStream("rates.json"),
         "JSON source is absent")) {
       // given
-      String responseBody = new BufferedReader(
+      var responseBody = new BufferedReader(
           new InputStreamReader(rateSource, StandardCharsets.UTF_8)).lines()
           .collect(Collectors.joining("\n"));
 
@@ -76,8 +76,8 @@ class GsonTest {
       var dollarRate = currencyRates.listIterator().next();
 
       assertAll("UAH/USD rate",
-          () -> assertEquals(Currency.USD, dollarRate.getCurrencyA(), "US dollar"),
-          () -> assertEquals(Currency.UAH, dollarRate.getCurrencyB(), "hryvnia"),
+          () -> assertEquals(Currency.USD, dollarRate.getSourceCurrency(), "US dollar"),
+          () -> assertEquals(Currency.UAH, dollarRate.getTargetCurrency(), "hryvnia"),
           () -> assertEquals(Instant.ofEpochSecond(1696918206), dollarRate.getDate(), "date"),
           () -> assertEquals(BigDecimal.valueOf(36.57), dollarRate.getRateBuy(), "buy"),
           () -> assertEquals(BigDecimal.valueOf(0), dollarRate.getRateCross(), "cross"),
@@ -91,7 +91,7 @@ class GsonTest {
     try (InputStream rateSource = requireNonNull(
         getClass().getResourceAsStream("missed_fields.json"), "JSON source is absent")) {
       // given
-      String responseBody = new BufferedReader(
+      var responseBody = new BufferedReader(
           new InputStreamReader(rateSource, StandardCharsets.UTF_8)).lines()
           .collect(Collectors.joining("\n"));
 
@@ -111,8 +111,8 @@ class GsonTest {
       var dollarRate = currencyRates.listIterator().next();
 
       assertAll("UAH/USD rate",
-          () -> assertEquals(Currency.USD, dollarRate.getCurrencyA(), "US dollar"),
-          () -> assertEquals(Currency.UAH, dollarRate.getCurrencyB(), "hryvnia"),
+          () -> assertEquals(Currency.USD, dollarRate.getSourceCurrency(), "US dollar"),
+          () -> assertEquals(Currency.UAH, dollarRate.getTargetCurrency(), "hryvnia"),
           () -> assertEquals(Instant.ofEpochSecond(1696918206), dollarRate.getDate(), "date"),
           () -> assertNull(dollarRate.getRateBuy(), "buy"),
           () -> assertEquals(BigDecimal.valueOf(36.4385), dollarRate.getRateCross(), "cross"),
@@ -129,7 +129,7 @@ class GsonTest {
       var messagePattern = "\\[429 Mocked\\] during \\[GET\\] to \\[(.+)/bank/currency\\] "
           + "\\[(.+)#getCurrencyRates\\(\\)\\]: "
           + "\\[\\{\"errorDescription\":\"Too many requests\"\\}\\]";
-      String responseBody = new BufferedReader(
+      var responseBody = new BufferedReader(
           new InputStreamReader(rateSource, StandardCharsets.UTF_8)).lines()
           .collect(Collectors.joining("\n"));
 

@@ -1,4 +1,4 @@
-package uk.bot_by.mbnk.currency_rate;
+package uk.bot_by.mbnk.currency_rate.core;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -22,14 +22,17 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class CurrencyRateFactoryTest {
 
   @Mock
+  private CurrencyRateStore currencyRateStore;
+  @Mock
   private CurrencyRateServiceProvider currencyRateServiceProvider;
   @Mock
-  private ServiceLoader<CurrencyRateServiceProvider> serviceLoader;
+  private ServiceLoader<CurrencyRateServiceProvider> serviceProviderLoader;
+  @Mock
+  private ServiceLoader<CurrencyRateStore> storeLoader;
 
-
-  @DisplayName("Provider is absent")
+  @DisplayName("Service provider is absent")
   @Test
-  void providerIsNotFound() {
+  void serviceProviderIsNotFound() {
     // when
     var exception = assertThrows(NoSuchElementException.class,
         CurrencyRateFactory::getServiceProvider);
@@ -38,22 +41,51 @@ class CurrencyRateFactoryTest {
     assertEquals("No Monobank Currency API providers found", exception.getMessage());
   }
 
-  @DisplayName("Provider is found")
+  @DisplayName("Service provider is found")
   @SuppressWarnings("rawtypes")
   @Test
-  void providerIsFound() {
+  void serviceProviderIsFound() {
     // given
-    when(serviceLoader.findFirst()).thenReturn(Optional.of(currencyRateServiceProvider));
+    when(serviceProviderLoader.findFirst()).thenReturn(Optional.of(currencyRateServiceProvider));
 
     try (MockedStatic<ServiceLoader> staticUtilities = Mockito.mockStatic(ServiceLoader.class)) {
       staticUtilities.when(() -> ServiceLoader.load(CurrencyRateServiceProvider.class))
-          .thenReturn(serviceLoader);
+          .thenReturn(serviceProviderLoader);
 
       // when
       var instance = assertDoesNotThrow(CurrencyRateFactory::getServiceProvider);
 
       // then
       assertEquals(currencyRateServiceProvider, instance);
+    }
+  }
+
+  @DisplayName("Store provider is absent")
+  @Test
+  void storeProviderIsNotFound() {
+    // when
+    var exception = assertThrows(NoSuchElementException.class, CurrencyRateFactory::getStore);
+
+    // then
+    assertEquals("No Currency Rate Store providers found", exception.getMessage());
+  }
+
+  @DisplayName("Service provider is found")
+  @SuppressWarnings("rawtypes")
+  @Test
+  void storeProviderIsFound() {
+    // given
+    when(storeLoader.findFirst()).thenReturn(Optional.of(currencyRateStore));
+
+    try (MockedStatic<ServiceLoader> staticUtilities = Mockito.mockStatic(ServiceLoader.class)) {
+      staticUtilities.when(() -> ServiceLoader.load(CurrencyRateStore.class))
+          .thenReturn(storeLoader);
+
+      // when
+      var instance = assertDoesNotThrow(CurrencyRateFactory::getStore);
+
+      // then
+      assertEquals(currencyRateStore, instance);
     }
   }
 

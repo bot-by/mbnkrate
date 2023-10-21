@@ -19,8 +19,8 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import java.math.BigDecimal;
 import java.time.Instant;
-import uk.bot_by.mbnk.currency_rate.Currency;
-import uk.bot_by.mbnk.currency_rate.CurrencyRate;
+import uk.bot_by.mbnk.currency_rate.core.Currency;
+import uk.bot_by.mbnk.currency_rate.core.CurrencyRate;
 
 /**
  * This implementation to bind {@link CurrencyRate} with Gson.
@@ -29,10 +29,10 @@ public class GsonCurrencyRate implements CurrencyRate {
 
   @JsonAdapter(CurrencyCodeTypeAdapter.class)
   @SerializedName("currencyCodeA")
-  private Currency currencyA;
+  private Currency sourceCurrency;
   @JsonAdapter(CurrencyCodeTypeAdapter.class)
   @SerializedName("currencyCodeB")
-  private Currency currencyB;
+  private Currency targetCurrency;
   @JsonAdapter(UnixTimeTypeAdapter.class)
   private Instant date;
   private BigDecimal rateBuy;
@@ -40,13 +40,13 @@ public class GsonCurrencyRate implements CurrencyRate {
   private BigDecimal rateSell;
 
   @Override
-  public Currency getCurrencyA() {
-    return currencyA;
+  public Currency getSourceCurrency() {
+    return sourceCurrency;
   }
 
   @Override
-  public Currency getCurrencyB() {
-    return currencyB;
+  public Currency getTargetCurrency() {
+    return targetCurrency;
   }
 
   @Override

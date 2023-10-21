@@ -15,10 +15,11 @@
  */
 package uk.bot_by.mbnk.currency_rate.jackson;
 
+import feign.FeignException;
 import feign.Headers;
 import feign.RequestLine;
 import java.util.List;
-import uk.bot_by.mbnk.currency_rate.CurrencyRateService;
+import uk.bot_by.mbnk.currency_rate.core.CurrencyRateService;
 
 public interface JacksonCurrencyRateService extends CurrencyRateService {
 
@@ -26,6 +27,6 @@ public interface JacksonCurrencyRateService extends CurrencyRateService {
   @Headers({"User-Agent: @project.artifactId@/@project.version@ (@feign.client@)",
       "Accept: application/json"})
   @RequestLine(GET_CURRENCY_RATES)
-  List<JacksonCurrencyRate> getCurrencyRates();
+  List<JacksonCurrencyRate> getCurrencyRates() throws FeignException;
 
 }

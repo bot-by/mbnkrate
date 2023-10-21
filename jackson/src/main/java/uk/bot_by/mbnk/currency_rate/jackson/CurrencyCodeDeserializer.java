@@ -19,7 +19,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import java.io.IOException;
-import uk.bot_by.mbnk.currency_rate.Currency;
+import uk.bot_by.mbnk.currency_rate.core.Currency;
 
 /**
  * The Jackson deserializer converts the currency numeric code (ISO 4217) to {@link Currency}.

@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.bot_by.mbnk.currency_rate;
+package uk.bot_by.mbnk.currency_rate.core;
 
+import feign.FeignException;
 import java.util.List;
 
 /**
@@ -30,11 +31,11 @@ public interface CurrencyRateService {
    * <strong>Important:</strong><br>
    * the data must be cached and updated not more than once every 5 minutes.
    *
-   * @return list of currency rates
+   * @return list of currency rates, nulls are not allowed
    * @see <a
    * href="https://api.monobank.ua/docs/#tag/Publichni-dani/paths/~1bank~1currency/get">Monobank
    * open API (v2303): Отримання курсів валют</a>
    */
-  List<? extends CurrencyRate> getCurrencyRates();
+  List<? extends CurrencyRate> getCurrencyRates() throws FeignException;
 
 }

@@ -1,4 +1,4 @@
-package uk.bot_by.mbnk.currency_rate;
+package uk.bot_by.mbnk.currency_rate.core;
 
 import static com.github.npathai.hamcrestopt.OptionalMatchers.isPresent;
 import static java.util.Objects.isNull;

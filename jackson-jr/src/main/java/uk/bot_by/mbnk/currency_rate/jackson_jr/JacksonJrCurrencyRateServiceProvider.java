@@ -22,8 +22,8 @@ import feign.codec.Decoder;
 import feign.jackson.jr.JacksonJrDecoder;
 import java.util.List;
 import org.jetbrains.annotations.VisibleForTesting;
-import uk.bot_by.mbnk.currency_rate.CurrencyRateService;
-import uk.bot_by.mbnk.currency_rate.CurrencyRateServiceProvider;
+import uk.bot_by.mbnk.currency_rate.core.CurrencyRateService;
+import uk.bot_by.mbnk.currency_rate.core.CurrencyRateServiceProvider;
 
 /**
  * A provider creates a service with the {@linkplain JacksonJrDecoder Gson decoder}.

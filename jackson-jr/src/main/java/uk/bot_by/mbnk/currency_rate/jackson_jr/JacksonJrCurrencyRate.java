@@ -18,8 +18,8 @@ package uk.bot_by.mbnk.currency_rate.jackson_jr;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 import java.time.Instant;
-import uk.bot_by.mbnk.currency_rate.Currency;
-import uk.bot_by.mbnk.currency_rate.CurrencyRate;
+import uk.bot_by.mbnk.currency_rate.core.Currency;
+import uk.bot_by.mbnk.currency_rate.core.CurrencyRate;
 
 /**
  * This implementation to bind {@link CurrencyRate} with Jackson Jr.
@@ -27,9 +27,9 @@ import uk.bot_by.mbnk.currency_rate.CurrencyRate;
 public class JacksonJrCurrencyRate implements CurrencyRate {
 
   @JsonProperty("currencyCodeA")
-  private Currency currencyA;
+  private Currency sourceCurrency;
   @JsonProperty("currencyCodeB")
-  private Currency currencyB;
+  private Currency targetCurrency;
   @JsonProperty("date")
   private Instant date;
   @JsonProperty("rateBuy")
@@ -40,13 +40,13 @@ public class JacksonJrCurrencyRate implements CurrencyRate {
   private BigDecimal rateSell;
 
   @Override
-  public Currency getCurrencyA() {
-    return currencyA;
+  public Currency getSourceCurrency() {
+    return sourceCurrency;
   }
 
   @Override
-  public Currency getCurrencyB() {
-    return currencyB;
+  public Currency getTargetCurrency() {
+    return targetCurrency;
   }
 
   @Override

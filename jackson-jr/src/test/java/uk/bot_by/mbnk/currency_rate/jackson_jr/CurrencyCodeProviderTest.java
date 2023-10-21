@@ -18,7 +18,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
-import uk.bot_by.mbnk.currency_rate.Currency;
+import uk.bot_by.mbnk.currency_rate.core.Currency;
 
 @ExtendWith(MockitoExtension.class)
 @Tag("fast")

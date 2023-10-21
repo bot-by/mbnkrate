@@ -1,4 +1,4 @@
-package uk.bot_by.mbnk.currency_rate;
+package uk.bot_by.mbnk.currency_rate.core;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
@@ -64,7 +64,7 @@ class CurrencyRateServiceProviderTest {
     assertNotNull(service, "currency rate service");
   }
 
-  static interface TestCurrencyRateService extends CurrencyRateService {
+  interface TestCurrencyRateService extends CurrencyRateService {
 
     @Override
     @RequestLine(GET_CURRENCY_RATES)

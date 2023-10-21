@@ -13,10 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.bot_by.mbnk.currency_rate;
+package uk.bot_by.mbnk.currency_rate.core;
 
 import feign.Client;
 import feign.Feign;
+import feign.Target;
+import feign.Target.HardCodedTarget;
 import feign.codec.Decoder;
 import feign.http2client.Http2Client;
 import org.jetbrains.annotations.VisibleForTesting;
@@ -46,7 +48,7 @@ public abstract class CurrencyRateServiceProvider {
    */
   public final CurrencyRateService getService() {
     return Feign.builder().client(getClient()).decoder(getDecoder())
-        .target(getServiceType(), locator);
+        .target(getTarget());
   }
 
   /**
@@ -75,5 +77,9 @@ public abstract class CurrencyRateServiceProvider {
    * @return service class
    */
   protected abstract Class<? extends CurrencyRateService> getServiceType();
+
+  protected Target<? extends CurrencyRateService> getTarget() {
+    return new HardCodedTarget<>(getServiceType(), locator);
+  }
 
 }
