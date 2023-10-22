@@ -481,7 +481,7 @@
   <properties>
     <changelist>-SNAPSHOT</changelist>
     <feign.client>Java HttpClient</feign.client>
-    <feign.version>12.5</feign.version>
+    <feign.version>13.0</feign.version>
     <gson.version>2.10.1</gson.version>
     <jackson.version>2.15.3</jackson.version>
     <javadoc-plugin.version>3.6.0</javadoc-plugin.version>
