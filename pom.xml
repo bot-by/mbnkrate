@@ -484,7 +484,7 @@
     <feign.version>13.1</feign.version>
     <gson.version>2.10.1</gson.version>
     <jackson.version>2.16.1</jackson.version>
-    <javadoc-plugin.version>3.6.2</javadoc-plugin.version>
+    <javadoc-plugin.version>3.6.3</javadoc-plugin.version>
     <junit-jupiter.version>5.10.1</junit-jupiter.version>
     <mockito.version>5.8.0</mockito.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
