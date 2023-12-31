@@ -491,7 +491,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <revision>1.0.0</revision>
     <sha1/>
-    <slf4j.version>2.0.9</slf4j.version>
+    <slf4j.version>2.0.10</slf4j.version>
   </properties>
   <scm>
     <connection>scm:git:https://gitlab.com/bot-by/mbnk/mbnkrate.git</connection>
